@@ -1,0 +1,188 @@
+:root {
+    /* Colors */
+    --primary-color: #ff6200;
+    --secondary-color: #ff8c00;
+    
+    /* Text colors */
+    --text-light: #ffffff;
+    --text-dark: #1a1a1a;
+    
+    /* Background colors */
+    --bg-dark: rgba(0, 0, 0, 0.85);
+    --bg-light: rgba(255, 255, 255, 0.1);
+    --bg-hover: rgba(255, 98, 0, 0.2);
+    
+    /* Spacing */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+    
+    /* Typography */
+    --font-size-xs: 12px;
+    --font-size-sm: 14px;
+    --font-size-md: 16px;
+    --font-size-lg: 20px;
+    --font-size-xl: 24px;
+    
+    /* Effects */
+    --transition-speed: 0.3s;
+    --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+    --border-radius: 8px;
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.2);
+    
+    /* Z-index */
+    --z-header: 1000;
+    --z-sidebar: 900;
+    --z-modal: 1100;
+    --z-tooltip: 1200;
+    --z-dropdown: 1300;
+    
+    /* Sidebar */
+    --sidebar-width: 240px;
+    --sidebar-collapsed-width: 64px;
+    --header-height: 64px;
+}
+
+.app-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: url("https://cf.shopee.vn/file/ba55568357469435d6097428d1a1e02d") center/cover no-repeat;
+    z-index: 0;
+}
+
+.app-background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.main-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: relative;
+    padding-top: 64px;
+}
+
+.main-content-wrapper {
+    display: flex;
+    min-height: calc(100vh - var(--header-height));
+    margin-top: var(--header-height);
+    position: relative;
+    z-index: 1;
+}
+
+.main-content {
+    flex: 1;
+    padding: 24px;
+    margin-left: 60px;
+    color: white;
+}
+
+.main-content.content-shifted {
+    margin-left: var(--sidebar-width);
+}
+
+.food-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+    padding: 24px 0;
+}
+
+/* Food item styles */
+.food-item {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    color: white;
+    cursor: pointer;
+}
+
+.food-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.food-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+}
+
+.food-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.food-item:hover .food-image img {
+    transform: scale(1.05);
+}
+
+.food-content {
+    padding: 16px;
+}
+
+.food-item h3 {
+    color: white;
+    margin: 0 0 12px 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.food-item .price {
+    color: var(--primary-color);
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.food-item .original-price {
+    text-decoration: line-through;
+    color: rgba(255, 255, 255, 0.6);
+    margin-left: 8px;
+    font-size: 0.9rem;
+}
+
+.food-item .delivery-time {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    margin-top: 8px;
+}
+
+/* Responsive styles */
+@media (max-width: 960px) {
+    .main-content {
+        margin-left: 0;
+        padding: 16px;
+    }
+    
+    .main-content.content-shifted {
+        margin-left: 0;
+    }
+    
+    .food-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 16px;
+        padding: 16px 0;
+    }
+}
