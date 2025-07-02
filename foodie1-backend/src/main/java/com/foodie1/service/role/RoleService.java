@@ -30,11 +30,11 @@ public class RoleService implements IRoleService {
 
     @Override
     public Role save(Role role) {
-        return null;
+        return roleRepo.save(role);
     }
 
     @Override
     public void delete(Role role) {
-
+        roleRepo.delete(role);
     }
 }

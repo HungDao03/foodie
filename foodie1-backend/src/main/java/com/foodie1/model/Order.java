@@ -6,10 +6,18 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-
+import jakarta.persistence.Column;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "orders")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,46 +29,27 @@ public class Order {
     @ManyToOne
     private FoodItem foodItem;
 
+    private Integer quantity;
+
     private String status;
+    
+    @Column(name = "order_time")
     private String orderTime;
+    
+    @Column(name = "delivery_address")
+    private String deliveryAddress;
+    
+    @Column(name = "phone_number")
+    private String phoneNumber;
+    
+    @Column(name = "total_amount")
+    private Double totalAmount;
+    
+    @Column(name = "payment_status")
+    private String paymentStatus;
+    
+    @Column(name = "payment_method")
+    private String paymentMethod;
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public FoodItem getFoodItem() {
-        return foodItem;
-    }
-
-    public void setFoodItem(FoodItem foodItem) {
-        this.foodItem = foodItem;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getOrderTime() {
-        return orderTime;
-    }
-
-    public void setOrderTime(String orderTime) {
-        this.orderTime = orderTime;
-    }
 }

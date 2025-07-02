@@ -1,8 +1,7 @@
 package com.foodie1.service.order;
-
-;
 import com.foodie1.model.Order;
 import com.foodie1.repo.OrderRepository;
+import com.foodie1.service.IGenericService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +10,29 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class OrderService {
+public class OrderService implements IGenericService<Order> {
     @Autowired
     private OrderRepository orderRepository;
+
+    @Override
+    public List<Order> findAll() {
+        return orderRepository.findAll();
+    }
+
+    @Override
+    public Order findById(Long id) {
+        return orderRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Order save(Order order) {
+        return orderRepository.save(order);
+    }
+
+    @Override
+    public void delete(Order order) {
+        orderRepository.delete(order);
+    }
 
     public Order placeOrder(Order order) {
         order.setOrderTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));

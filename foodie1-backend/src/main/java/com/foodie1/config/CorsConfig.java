@@ -7,16 +7,25 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 @Configuration
-public class CorsConfig {
+public class    CorsConfig {
 
     @Bean
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         
-        // Cho phép tất cả origins trong môi trường development
-        config.addAllowedOrigin("http://localhost:5174");
-        config.addAllowedOrigin("http://localhost:3000");
+        // Lấy domain từ biến môi trường hoặc application.properties
+        String allowedOrigins = System.getenv("ALLOWED_ORIGINS"); // ví dụ: "https://foodie.com,https://admin.foodie.com"
+        if (allowedOrigins != null && !allowedOrigins.isBlank()) {
+            for (String origin : allowedOrigins.split(",")) {
+                config.addAllowedOrigin(origin.trim());
+            }
+        } else {
+            // Mặc định cho phép localhost khi dev
+            config.addAllowedOrigin("http://localhost:5173");
+            config.addAllowedOrigin("http://localhost:5174");
+            config.addAllowedOrigin("http://localhost:3000");
+        }
         
         // Cho phép tất cả headers
         config.addAllowedHeader("*");

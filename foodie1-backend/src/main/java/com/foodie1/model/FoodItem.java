@@ -8,36 +8,44 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Column;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+/**
+ * Entity đại diện cho một món ăn trong hệ thống
+ */
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "food_items")
 public class FoodItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private double price;
+    
+    private String name;        // Tên món ăn
+    private double price;       // Giá gốc
+    
     @Column(name = "discount_price")
-    private double discountPrice;
+    private double discountPrice;   // Giá khuyến mãi
+    
     @Column(name = "delivery_time")
-    private int deliveryTime;
-    private String restaurant;
+    private int deliveryTime;       // Thời gian giao hàng (phút)
+    
+    private String restaurant;      // Tên nhà hàng
+    
     @ManyToOne
-    private Category category;
+    private Category category;      // Danh mục món ăn (VD: Đồ ăn, Đồ uống)
+    
+    @Column(name = "image_url")
+    private String imageUrl;        // Đường dẫn ảnh món ăn
+    
+    @Column(nullable = false)
+    private boolean deleted = false;    // Trạng thái xóa mềm
 
-    // Getters and Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-    public double getPrice() { return price; }
-    public void setPrice(double price) { this.price = price; }
-    public double getDiscountPrice() { return discountPrice; }
-    public void setDiscountPrice(double discountPrice) { this.discountPrice = discountPrice; }
-    public int getDeliveryTime() { return deliveryTime; }
-    public void setDeliveryTime(int deliveryTime) { this.deliveryTime = deliveryTime; }
-    public String getRestaurant() { return restaurant; }
-    public void setRestaurant(String restaurant) { this.restaurant = restaurant; }
-    public Category getCategory() { return category; }
-    public void setCategory(Category category) { this.category = category; }
+
 }

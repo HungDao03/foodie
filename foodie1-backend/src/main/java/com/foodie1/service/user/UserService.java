@@ -20,12 +20,12 @@ public class UserService implements IUserService, UserDetailsService {
 
     @Override
     public List<User> findAll() {
-        return List.of();
+        return userRepo.findAll();
     }
 
     @Override
     public User findById(Long id) {
-        return null;
+        return userRepo.findById(id).orElse(null);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class UserService implements IUserService, UserDetailsService {
 
     @Override
     public void delete(User user) {
-
+        userRepo.delete(user);
     }
 
     @Override

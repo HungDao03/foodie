@@ -1,0 +1,301 @@
+.admin-container {
+    min-height: 100vh;
+    position: relative;
+    padding: 24px;
+    padding-top: 88px; /* Add padding for header */
+}
+
+.admin-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: url("https://cf.shopee.vn/file/ba55568357469435d6097428d1a1e02d") center/cover no-repeat;
+    z-index: 0;
+}
+
+.admin-background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+/* Admin Header Styles */
+.admin-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(12px);
+    z-index: 1100;
+    border-bottom: 1px solid rgba(255, 98, 0, 0.3);
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    justify-content: space-between;
+}
+
+.admin-header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.admin-menu-button {
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.admin-menu-button:hover {
+    background: rgba(255, 98, 0, 0.2);
+    color: #ff6200;
+}
+
+.admin-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.admin-logo:hover {
+    color: #ff6200;
+}
+
+.admin-header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.admin-user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: white;
+    padding: 4px;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.admin-user-info:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.admin-user-details {
+    padding-right: 12px;
+}
+
+.admin-user-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
+}
+
+.admin-user-role {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.admin-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #ff6200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+}
+
+/* Admin Sidebar Styles */
+.admin-sidebar {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    width: 0;
+    height: calc(100vh - 64px);
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(12px);
+    z-index: 1000;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    border-right: 1px solid rgba(255, 98, 0, 0.3);
+}
+
+.admin-sidebar.open {
+    width: 250px;
+}
+
+.admin-nav {
+    padding: 24px 16px;
+}
+
+.admin-nav-item {
+    margin-bottom: 8px;
+}
+
+.admin-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.admin-nav-link:hover,
+.admin-nav-link.active {
+    background: rgba(255, 98, 0, 0.2);
+    color: #ff6200;
+}
+
+.admin-nav-icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Content area */
+.admin-main {
+    position: relative;
+    z-index: 1;
+}
+
+/* Food Grid Styles */
+.food-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+    padding: 24px 0;
+    position: relative;
+    z-index: 1;
+}
+
+.food-item {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    color: white;
+}
+
+.food-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.food-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+}
+
+.food-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.food-item:hover .food-image img {
+    transform: scale(1.05);
+}
+
+.food-content {
+    padding: 16px;
+}
+
+.food-item h3 {
+    color: white;
+    margin: 0 0 12px 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.food-item .price {
+    color: #ff6200;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.food-item .original-price {
+    text-decoration: line-through;
+    color: rgba(255, 255, 255, 0.6);
+    margin-left: 8px;
+    font-size: 0.9rem;
+}
+
+.food-info {
+    margin-top: 8px;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.food-info small {
+    display: inline-block;
+    margin-bottom: 4px;
+}
+
+.food-content h3 {
+    margin-bottom: 16px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: white;
+}
+
+.price {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #ff6200;
+}
+
+.original-price {
+    margin-left: 8px;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: line-through;
+}
+
+/* Responsive styles */
+@media (max-width: 960px) {
+    .admin-container {
+        padding: 16px;
+    }
+    
+    .food-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 16px;
+        padding: 16px 0;
+    }
+} 

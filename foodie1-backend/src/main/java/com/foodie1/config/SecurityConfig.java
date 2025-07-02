@@ -77,19 +77,25 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(request -> {
                     CorsConfiguration configuration = new CorsConfiguration();
-                    configuration.setAllowedOrigins(List.of("*"));
-                    configuration.setAllowedMethods(List.of("*"));
+                    configuration.setAllowedOrigins(List.of(
+                        "http://localhost:5173",
+                        "http://localhost:5174",
+                        "http://localhost:3000"
+                    ));
+                    configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
                     configuration.setAllowedHeaders(List.of("*"));
+                    configuration.setAllowCredentials(true);
                     return configuration;
                 }))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.OPTIONS,"/**").permitAll()
-                        .requestMatchers("/api/login", "/api/register").permitAll()
+                        .requestMatchers("/api/login", "/api/register", "/api/create-admin").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/categories", "/api/food-items/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/categories", "/api/food-items").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/food-items/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/food-items/**").hasRole("ADMIN")
                         .requestMatchers("/api/orders/**").authenticated()
-                        .requestMatchers("/static/**", "/upload/**", "/*.jpg", "/*.png", "/*.jpeg").permitAll()
+                        .requestMatchers("/static/**", "/uploads/**","/uploads/avatar/**", "/*.jpg", "/*.png", "/*.jpeg").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
