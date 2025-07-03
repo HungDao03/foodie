@@ -3,38 +3,30 @@ package com.foodie1.controller;
 import com.foodie1.dto.request.UserUpdateRequest;
 import com.foodie1.dto.response.UserResponse;
 import com.foodie1.model.User;
+import com.foodie1.service.file.FileStorageService;
 import com.foodie1.service.user.IUserService;
 import com.foodie1.dto.mapper.EntityDtoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.UUID;
-import java.util.stream.Collectors;
-
 import jakarta.validation.Valid;
+import java.nio.file.Paths;
 
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
-
-    @Value("${file.upload-dir}")
-    private String uploadDir;
 
     @Autowired
     private IUserService userService;
 
     @Autowired
     private EntityDtoMapper mapper;
+
+    @Autowired
+    private FileStorageService fileStorageService;
 
     @GetMapping("/profile")
     public ResponseEntity<UserResponse> getUserProfile() {
@@ -73,30 +65,21 @@ public class UserController {
             if (user == null) {
                 return ResponseEntity.notFound().build();
             }
-            Path uploadPath = Paths.get(uploadDir, "avatar");
+
+            // Xoá avatar cũ nếu có
             if (user.getAvatar() != null && !user.getAvatar().isEmpty()) {
-                try {
-                    String oldFileName = user.getAvatar();
-                    Path oldFilePath = uploadPath.resolve(oldFileName);
-                    Files.deleteIfExists(oldFilePath);
-                } catch (Exception e) {}
+                String avatarFileName = Paths.get(user.getAvatar()).getFileName().toString();
+                fileStorageService.deleteFile(avatarFileName, "avatar");
             }
-            String fileExtension = getFileExtension(file.getOriginalFilename());
-            String newFileName = UUID.randomUUID().toString() + fileExtension;
-            Path filePath = uploadPath.resolve(newFileName);
-            Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+            // Lưu avatar mới
+            String newFileName = fileStorageService.saveFile(file, "avatar");
             user.setAvatar(newFileName);
             User savedUser = userService.save(user);
+
             return ResponseEntity.ok().body(newFileName);
-        } catch (IOException e) {
+        } catch (Exception e) {
             return ResponseEntity.internalServerError().body("Không thể upload file: " + e.getMessage());
         }
     }
-
-    private String getFileExtension(String fileName) {
-        if (fileName == null) return "";
-        int lastDotIndex = fileName.lastIndexOf('.');
-        if (lastDotIndex == -1) return "";
-        return fileName.substring(lastDotIndex);
-    }
-} 
+}

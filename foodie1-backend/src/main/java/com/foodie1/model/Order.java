@@ -51,5 +51,6 @@ public class Order {
     @Column(name = "payment_method")
     private String paymentMethod;
 
-
+    @Column(name = "notes")
+    private String notes;
 }

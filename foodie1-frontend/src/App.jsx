@@ -8,12 +8,13 @@ import { ThemeProvider, CssBaseline } from "@mui/material"; // Thêm dòng này
 
 import Main from "./components/layout/Main/index.jsx";
 
-import Account from "./pages/User/Account.jsx";
+import Index from "./pages/User/Account/index.jsx";
 import FoodProvider from './components/store/foodStore.jsx';
 import AdminList from './pages/Admin/index.jsx';
 import Homepage from "./pages/home/index.jsx";
 import customTheme from "./components/theme/theme.js";
 import FoodCardList from "./pages/User/index.jsx";
+import OrderHistory from './pages/User/history/index.jsx';
 
 
 function App() {
@@ -37,7 +38,8 @@ function App() {
                     <Route path="" element={<Homepage />} />
                     <Route path="/user" element={<Main />} >
                         <Route path="" element={<FoodCardList />} />
-                        <Route path="account" element={<Account />} />
+                        <Route path="account" element={<Index />} />
+                        <Route path="history" element={<OrderHistory />} />
                     </Route>
                     <Route path="/admin" element={<AdminList />} />
                 </Routes>

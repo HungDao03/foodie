@@ -9,9 +9,10 @@ public class OrderResponse {
     private String deliveryAddress;
     private String phoneNumber;
     private Double totalAmount;
+    private String userName;
     private String paymentStatus;
     private String paymentMethod;
-    private String userName;
+    private String notes;
     // getter, setter
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -35,4 +36,6 @@ public class OrderResponse {
     public void setPaymentMethod(String paymentMethod) { this.paymentMethod = paymentMethod; }
     public String getUserName() { return userName; }
     public void setUserName(String userName) { this.userName = userName; }
+    public String getNotes() { return notes; }
+    public void setNotes(String notes) { this.notes = notes; }
 } 

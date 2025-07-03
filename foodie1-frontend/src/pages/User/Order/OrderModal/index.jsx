@@ -38,7 +38,6 @@ function OrderModal({ open, onClose, foodItem, userInfo }) {
         deliveryAddress: '',
         phoneNumber: '',
         notes: '',
-        paymentMethod: 'QR'
     });
 
     useEffect(() => {
@@ -107,8 +106,7 @@ function OrderModal({ open, onClose, foodItem, userInfo }) {
         try {
             const user = JSON.parse(localStorage.getItem('user'));
             const response = await axios.post('http://localhost:8080/api/orders', {
-                user: { id: user.id },
-                foodItem: { id: foodItem.id },
+                foodItemId: foodItem.id,
                 quantity: orderData.quantity,
                 deliveryAddress: orderData.deliveryAddress,
                 phoneNumber: orderData.phoneNumber,
@@ -124,12 +122,11 @@ function OrderModal({ open, onClose, foodItem, userInfo }) {
             });
 
             if (response.data) {
-                toast.success('Đặt hàng thành công! Bạn có thể xem đơn hàng trong phần Tài khoản.');
+                toast.success('Đặt hàng thành công! Bạn có thể xem đơn hàng trong phần Lịch sử đặt hàng.');
                 onClose();
-                navigate('/user');
+                navigate('/user/history');
             }
         } catch (error) {
-            console.error('Error placing order:', error);
             toast.error('Có lỗi xảy ra khi đặt hàng!');
         } finally {
             setLoading(false);

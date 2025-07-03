@@ -33,7 +33,7 @@ function AdminPage() {
             }
         }
 
-        const loadFoods = async () => {z
+        const loadFoods = async () => {
             try {
                 const response = await FoodItemsService.getAllFoods();
                 setFoods(response.data);
@@ -96,6 +96,12 @@ function AdminPage() {
     const handleEditSuccess = (updatedFood) => {
         console.log('Updated food data:', updatedFood);
         reloadFoods();
+    };
+
+    const getFoodImageUrl = (imageUrl) => {
+        if (!imageUrl) return "https://placehold.co/300x200/png?text=Food+Image";
+        if (imageUrl.startsWith("http")) return imageUrl;
+        return `http://localhost:8080/uploads/food/${imageUrl}`;
     };
 
     if (loading) {
@@ -208,7 +214,7 @@ function AdminPage() {
                                 <div key={food.id} className="food-item">
                                     <div className="food-image">
                                         <img
-                                            src={food.imageUrl}
+                                            src={getFoodImageUrl(food.imageUrl)}
                                             alt={food.name}
                                             onError={(e) => {
                                                 e.target.src = 'https://placehold.co/300x200/png?text=Food+Image';

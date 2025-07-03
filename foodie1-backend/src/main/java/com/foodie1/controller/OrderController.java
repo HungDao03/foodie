@@ -49,6 +49,8 @@ public class OrderController {
         order.setDeliveryAddress(orderRequest.getDeliveryAddress());
         order.setPhoneNumber(orderRequest.getPhoneNumber());
         order.setPaymentMethod(orderRequest.getPaymentMethod());
+        order.setNotes(orderRequest.getNotes());
+        order.setTotalAmount(orderRequest.getTotalAmount());
         Order saved = orderService.placeOrder(order);
         return ResponseEntity.ok(mapper.toOrderResponse(saved));
     }

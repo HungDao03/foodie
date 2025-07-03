@@ -14,6 +14,12 @@ export default function FoodCard({ food, onOrderClick }) {
         e.target.src = "https://placehold.co/300x200/png?text=Food+Image";
     };
 
+    const getFoodImageUrl = (imageUrl) => {
+        if (!imageUrl) return "https://placehold.co/300x200/png?text=Food+Image";
+        if (imageUrl.startsWith("http")) return imageUrl;
+        return `http://localhost:8080/uploads/food/${imageUrl}`;
+    };
+
     return (
         <Box
             sx={{
@@ -44,7 +50,7 @@ export default function FoodCard({ food, onOrderClick }) {
                 }}
             >
                 <img
-                    src={food.imageUrl}
+                    src={getFoodImageUrl(food.imageUrl)}
                     alt={food.name}
                     onError={handleImageError}
                     style={{
