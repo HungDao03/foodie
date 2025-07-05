@@ -15,6 +15,7 @@ import Homepage from "./pages/home/index.jsx";
 import customTheme from "./components/theme/theme.js";
 import FoodCardList from "./pages/User/index.jsx";
 import OrderHistory from './pages/User/history/index.jsx';
+import CartPage from './pages/User/cart/index.jsx';
 
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
                         <Route path="" element={<FoodCardList />} />
                         <Route path="account" element={<Index />} />
                         <Route path="history" element={<OrderHistory />} />
+                        <Route path="cart" element={<CartPage />} />
                     </Route>
                     <Route path="/admin" element={<AdminList />} />
                 </Routes>

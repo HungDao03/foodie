@@ -4,6 +4,7 @@ import { useState, createContext, useContext } from 'react';
 const FoodContext = createContext();
 
 // Custom hook để sử dụng context
+// eslint-disable-next-line react-refresh/only-export-components
 export function useFoodStore() {
     const context = useContext(FoodContext);
     if (!context) {

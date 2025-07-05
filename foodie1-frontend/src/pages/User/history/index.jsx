@@ -98,15 +98,17 @@ export default function OrderHistory() {
                 <TableCell align="right">Tổng tiền</TableCell>
                 <TableCell>Địa chỉ</TableCell>
                 <TableCell>SĐT</TableCell>
+                <TableCell>Ghi chú</TableCell>
                 <TableCell>Thời gian</TableCell>
                 <TableCell>Trạng thái</TableCell>
+
               </TableRow>
             </TableHead>
             <TableBody>
               {orders.map((order) => (
                 <TableRow key={order.id} hover>
                   <TableCell>#{order.id}</TableCell>
-                  <TableCell>{order.foodItem?.name || 'N/A'}</TableCell>
+                  <TableCell>{order.foodName || order.foodItem?.name || 'N/A'}</TableCell>
                   <TableCell align="center">
                     <Chip
                       label={order.quantity}
@@ -115,15 +117,19 @@ export default function OrderHistory() {
                     />
                   </TableCell>
                   <TableCell align="right">
-                    {order.foodItem?.discountPrice?.toLocaleString('vi-VN') || order.foodItem?.price?.toLocaleString('vi-VN') || 0}đ
+                    {order.foodItem?.discountPrice?.toLocaleString('vi-VN')
+                      || order.foodItem?.price?.toLocaleString('vi-VN')
+                      || (order.totalAmount && order.quantity ? (order.totalAmount / order.quantity).toLocaleString('vi-VN') : 0)}đ
                   </TableCell>
                   <TableCell align="right">
                     <Typography color="primary" fontWeight="bold">
                       {order.totalAmount?.toLocaleString('vi-VN')}đ
                     </Typography>
                   </TableCell>
+
                   <TableCell>{order.deliveryAddress}</TableCell>
                   <TableCell>{order.phoneNumber}</TableCell>
+                  <TableCell>{order.notes || ''}</TableCell>
                   <TableCell>{order.orderTime ? new Date(order.orderTime).toLocaleString('vi-VN') : ''}</TableCell>
                   <TableCell>
                     <Chip
@@ -132,6 +138,7 @@ export default function OrderHistory() {
                       size="small"
                     />
                   </TableCell>
+
                 </TableRow>
               ))}
             </TableBody>

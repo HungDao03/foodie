@@ -8,7 +8,8 @@ class OrderService {
 
     // Lấy đơn hàng của user hiện tại
     static async getUserOrders() {
-        return await axiosInstance.get("/orders/user");
+        const user = JSON.parse(localStorage.getItem('user'));
+        return await axiosInstance.get(`/orders/${user.id}`);
     }
 
     // Tạo đơn hàng mới

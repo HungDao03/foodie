@@ -112,9 +112,7 @@ function OrderModal({ open, onClose, foodItem, userInfo }) {
                 phoneNumber: orderData.phoneNumber,
                 notes: orderData.notes,
                 totalAmount: calculateTotal(),
-                paymentMethod: orderData.paymentMethod,
-                paymentStatus: 'PENDING',
-                status: 'PENDING'
+                paymentMethod: orderData.paymentMethod || 'COD'
             }, {
                 headers: {
                     'Authorization': `${user.tokenType} ${user.token}`
